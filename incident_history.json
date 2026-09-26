@@ -1,0 +1,38 @@
+[
+    {
+        "time": "2026-09-26 19:34:33",
+        "event": "Malware detected on endpoint",
+        "source": "192.168.1.30",
+        "threat": "Malicious",
+        "severity": "High",
+        "action": "Simulated Isolation",
+        "verification": "Verified"
+    },
+    {
+        "time": "2026-09-26 19:34:59",
+        "event": "Port scanning activity detected",
+        "source": "192.168.1.40",
+        "threat": "Suspicious",
+        "severity": "Medium",
+        "action": "Simulated Temporary Block",
+        "verification": "Verified"
+    },
+    {
+        "time": "2026-09-26 19:35:09",
+        "event": "Unauthorized access detected",
+        "source": "192.168.1.50",
+        "threat": "Malicious",
+        "severity": "High",
+        "action": "Simulated Isolation",
+        "verification": "Verified"
+    },
+    {
+        "time": "2026-09-26 19:43:29",
+        "event": "Normal user login",
+        "source": "192.168.1.10",
+        "threat": "Normal",
+        "severity": "Low",
+        "action": "No Action Required",
+        "verification": "Not Required"
+    }
+]

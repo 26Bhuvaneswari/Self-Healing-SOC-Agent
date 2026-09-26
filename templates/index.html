@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Healing SOC Agent</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #17202a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #17202a;
+            color: white;
+        }
+
+        .button {
+            background: #17202a;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .normal {
+            color: green;
+            font-weight: bold;
+        }
+
+        .suspicious {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .malicious {
+            color: red;
+            font-weight: bold;
+        }
+
+        .verified {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Self-Healing SOC Agent</h1>
+    <p>Security Operations Center Monitoring Dashboard</p>
+</header>
+
+<div class="container">
+   <div class="card">
+    <h2>System Health</h2>
+
+    <table>
+        <tr>
+            <th>Component</th>
+            <th>Status</th>
+        </tr>
+
+        <tr>
+            <td>Threat Monitoring</td>
+            <td class="verified">ACTIVE</td>
+        </tr>
+
+        <tr>
+            <td>Detection Engine</td>
+            <td class="verified">RUNNING</td>
+        </tr>
+
+        <tr>
+            <td>Remediation Mode</td>
+            <td>SIMULATION ONLY</td>
+        </tr>
+
+        <tr>
+            <td>Verification</td>
+            <td class="verified">ENABLED</td>
+        </tr>
+
+        <tr>
+            <td>Overall System Status</td>
+            <td class="verified">HEALTHY</td>
+        </tr>
+    </table>
+</div>
+   <div class="card">
+    <h2>SOC Automated Workflow</h2>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; text-align:center;">
+
+        <div style="flex:1; background:#e8f5e9; padding:18px; border-radius:10px;">
+            <h3>1. Detect</h3>
+            <p>Identify suspicious events</p>
+        </div>
+
+        <div style="font-size:25px;">→</div>
+
+        <div style="flex:1; background:#fff3e0; padding:18px; border-radius:10px;">
+            <h3>2. Analyze</h3>
+            <p>Classify threat severity</p>
+        </div>
+
+        <div style="font-size:25px;">→</div>
+
+        <div style="flex:1; background:#ffebee; padding:18px; border-radius:10px;">
+            <h3>3. Remediate</h3>
+            <p>Perform safe response</p>
+        </div>
+
+        <div style="font-size:25px;">→</div>
+
+        <div style="flex:1; background:#e3f2fd; padding:18px; border-radius:10px;">
+            <h3>4. Verify</h3>
+            <p>Confirm response status</p>
+        </div>
+
+    </div>
+</div>
+
+    <div class="card">
+        <h2>SOC Summary</h2>
+
+        <table>
+            <tr>
+                <th>Normal Events</th>
+                <th>Suspicious Events</th>
+                <th>Malicious Events</th>
+            </tr>
+
+            <tr>
+                <td class="normal">{{ normal_count }}</td>
+                <td class="suspicious">{{ suspicious_count }}</td>
+                <td class="malicious">{{ malicious_count }}</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="card">
+        <h2>Security Events</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Event</th>
+                <th>Source</th>
+                <th>Action</th>
+            </tr>
+
+            {% for item in logs %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.event }}</td>
+                <td>{{ item.source }}</td>
+                <td>
+                    <a class="button" href="/?id={{ item.id }}">
+                        Analyze
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+
+    <div class="card">
+        <h2>Current Analysis</h2>
+
+        <p>
+            <strong>Event:</strong>
+            {{ log }}
+        </p>
+
+        <p>
+            <strong>Threat Level:</strong>
+
+            {% if detection.status == "Malicious" %}
+                <span class="malicious">{{ detection.status }}</span>
+            {% elif detection.status == "Suspicious" %}
+                <span class="suspicious">{{ detection.status }}</span>
+            {% else %}
+                <span class="normal">{{ detection.status }}</span>
+            {% endif %}
+        </p>
+
+        <p>
+            <strong>Reason:</strong>
+            {{ detection.reason }}
+        </p>
+
+        <p>
+            <strong>Severity:</strong>
+            {{ analysis.severity }}
+        </p>
+    </div>
+
+
+    <div class="card">
+        <h2>Safe Remediation</h2>
+
+        <p>
+            <strong>Action:</strong>
+            {{ remediation.action }}
+        </p>
+
+        <p>
+            <strong>Result:</strong>
+            {{ remediation.result }}
+        </p>
+
+        <p>
+            <strong>Reason:</strong>
+            {{ remediation.reason }}
+        </p>
+
+        <p>
+            <strong>Mode:</strong>
+            {{ remediation.mode }}
+        </p>
+    </div>
+
+
+    <div class="card">
+        <h2>Incident Status</h2>
+
+        <p>
+            <strong>{{ incident_status }}</strong>
+        </p>
+    </div>
+
+
+    <div class="card">
+        <h2>Verification</h2>
+
+        <p class="verified">
+            {{ verification.status }}
+        </p>
+
+        <p>
+            {{ verification.message }}
+        </p>
+    </div>
+
+
+    <div class="card">
+        <h2>Incident History</h2>
+
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>Event</th>
+                <th>Source</th>
+                <th>Threat</th>
+                <th>Severity</th>
+                <th>Action</th>
+                <th>Verification</th>
+            </tr>
+
+            {% for incident in incident_history %}
+            <tr>
+                <td>{{ incident.time }}</td>
+                <td>{{ incident.event }}</td>
+                <td>{{ incident.source }}</td>
+                <td>{{ incident.threat }}</td>
+                <td>{{ incident.severity }}</td>
+                <td>{{ incident.action }}</td>
+                <td>{{ incident.verification }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
