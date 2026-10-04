@@ -34,5 +34,14 @@
         "severity": "Low",
         "action": "No Action Required",
         "verification": "Not Required"
+    },
+    {
+        "time": "2026-10-04 16:08:17",
+        "event": "Multiple failed login attempts",
+        "source": "192.168.1.25",
+        "threat": "Suspicious",
+        "severity": "Medium",
+        "action": "Simulated Temporary Block",
+        "verification": "Verified"
     }
 ]
