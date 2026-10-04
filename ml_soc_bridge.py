@@ -22,21 +22,11 @@ def analyze_ml_sample(row):
         else:
             severity = "Low"
 
-    else:
-        risk_score = round(100 - confidence)
+        action = "Simulated Isolation" if severity == "High" else "Simulated Block"
 
-        if risk_score >= 70:
-            severity = "High"
-        elif risk_score >= 30:
-            severity = "Medium"
-        else:
-            severity = "Low"
-
-    if prediction == "Attack" and severity == "High":
-        action = "Simulated Isolation"
-    elif prediction == "Attack":
-        action = "Simulated Block"
     else:
+        risk_score = 0
+        severity = "Low"
         action = "No Action"
 
     actual = "Attack" if actual_target == 1 else "Benign"
