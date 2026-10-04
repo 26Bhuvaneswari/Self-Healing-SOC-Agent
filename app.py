@@ -110,7 +110,7 @@ def home():
     # =========================================================
 
     ml_data = pd.read_csv(
-        r"MachineLearningCVE\ml_test_samples.csv"
+        r"MachineLearningCVE/ml_test_samples.csv"
     )
 
     ml_results = []
@@ -169,7 +169,7 @@ def home():
 def ml_test():
 
     data = pd.read_csv(
-        r"MachineLearningCVE\ml_test_samples.csv"
+        r"MachineLearningCVE/ml_test_samples.csv"
     )
 
     results = []
