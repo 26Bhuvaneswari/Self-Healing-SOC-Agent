@@ -1,0 +1,12 @@
+{
+    "dataset": "CICIDS2017 balanced dataset",
+    "test_samples": 40000,
+    "accuracy": 99.83,
+    "precision": 99.87,
+    "recall": 99.8,
+    "f1_score": 99.83,
+    "true_negative": 19974,
+    "false_positive": 26,
+    "false_negative": 41,
+    "true_positive": 19959
+}
